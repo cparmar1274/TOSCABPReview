@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value="/blueprintReview")
 public class BlueprintReviewController{
 
 	@Autowired(required = true)
@@ -17,7 +16,7 @@ public class BlueprintReviewController{
 
 	@RequestMapping(value = "/")
 	public String landingPage(HttpServletRequest request) {
-		return "index";
+		return "blueprint";
 	}
 
 	@RequestMapping(value = "/checkYaml", method = RequestMethod.POST)

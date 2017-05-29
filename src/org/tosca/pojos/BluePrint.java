@@ -1,4 +1,4 @@
-package org.tosca.blueprint;
+package org.tosca.pojos;
 
 import java.io.File;
 import java.util.Map;

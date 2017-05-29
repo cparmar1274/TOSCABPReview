@@ -1,4 +1,4 @@
-package org.tosca.blueprint;
+package org.tosca.pojos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.tosca.utility.BPUtil;
 
 import com.google.gson.Gson;
 
