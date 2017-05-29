@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller("/blueprintReview")
-public class BlueprintReviewController {
+@Controller
+@RequestMapping(value="/blueprintReview")
+public class BlueprintReviewController{
 
 	@Autowired(required = true)
 	public BlueprintReviewEngine bpEngineService;
