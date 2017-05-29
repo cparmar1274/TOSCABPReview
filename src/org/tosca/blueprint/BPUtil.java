@@ -5,43 +5,37 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import com.google.gson.Gson;
+
 public class BPUtil {
 
-	public static String readFile(String path) {
+	public String readFile(String path) throws IOException {
 		String fileString = "";
-		try {
-			System.out.println("Reading Started :" + path);
-			fileString = new String(Files.readAllBytes(Paths.get(path)));
-			System.out.println("File Data : " + fileString);
-		} catch (Exception e) {
-			System.out.println("File Read Error. - " + e.getMessage());
-		}
+		fileString = new String(Files.readAllBytes(Paths.get(path)));
 		return fileString;
 	}
 
-	public static boolean checkDirectory(String path) {
+	public boolean checkDirectory(String path) {
 		return new File(path).exists();
 	}
 
-	public static List<String> getListOfFiles(String path) {
+	public List<String> getListOfFiles(String path) throws Exception {
 		List<String> fileData = new ArrayList<>();
 		File folder = new File(path);
 		File[] files = folder.listFiles();
 
 		for (File file : files) {
-			try {
-				fileData.add(new String(FileUtils.readFileToByteArray(file)));
-			} catch (IOException e) {
-				System.out.println("File Read Error. - " + e.getMessage());
-			}
+			String filestr = new String(FileUtils.readFileToByteArray(file));
+			new Gson().fromJson(filestr, HashMap.class);
+			fileData.add(filestr);
 		}
 
 		return fileData;
 	}
-	
-	
+
 }

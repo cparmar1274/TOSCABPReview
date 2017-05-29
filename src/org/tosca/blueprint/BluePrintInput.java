@@ -13,44 +13,76 @@ public class BluePrintInput {
 
 	public Map<String, List<String>> bpInput = new HashMap<String, List<String>>();
 
-	public BluePrintInput(String blueprintInputPath) {
+	public String blueprintInputPath;
 
-		if (BPUtil.checkDirectory(blueprintInputPath + "\\DEV")) {
-			bpInput.put("DEV", BPUtil.getListOfFiles(blueprintInputPath + "\\DEV"));
-		}else {
-			bpInput.put("DEV",new ArrayList<>());
+	public BPUtil bpUtil;
+
+	public List<String> processBlueprint(String blueprintInputPath) {
+		List<String> message = new ArrayList<>();
+		this.blueprintInputPath = blueprintInputPath;
+		this.bpUtil = new BPUtil();
+
+		try {
+			if (bpUtil.checkDirectory(blueprintInputPath + "\\DEV")) {
+				bpInput.put("DEV", bpUtil.getListOfFiles(blueprintInputPath + "\\DEV"));
+			} else {
+				bpInput.put("DEV", new ArrayList<>());
+			}
+		} catch (Exception e) {
+			message.add("Invalid DEV input json file. Please review.");
 		}
 
-		if (BPUtil.checkDirectory(blueprintInputPath + "\\BAT")) {
-			bpInput.put("BAT", BPUtil.getListOfFiles(blueprintInputPath + "\\BAT"));
-		}else {
-			bpInput.put("BAT",new ArrayList<>());
+		try {
+			if (bpUtil.checkDirectory(blueprintInputPath + "\\SIT")) {
+				bpInput.put("SIT", bpUtil.getListOfFiles(blueprintInputPath + "\\SIT"));
+			} else {
+				bpInput.put("SIT", new ArrayList<>());
+			}
+		} catch (Exception e) {
+			message.add("Invalid SIT input json file. Please review.");
 		}
 
-		if (BPUtil.checkDirectory(blueprintInputPath + "\\SIT")) {
-			bpInput.put("SIT", BPUtil.getListOfFiles(blueprintInputPath + "\\SIT"));
-		}else {
-			bpInput.put("SIT",new ArrayList<>());
+		try {
+			if (bpUtil.checkDirectory(blueprintInputPath + "\\SYS")) {
+				bpInput.put("SYS", bpUtil.getListOfFiles(blueprintInputPath + "\\SYS"));
+			} else {
+				bpInput.put("SYS", new ArrayList<>());
+			}
+		} catch (Exception e) {
+			message.add("Invalid SYS input json file. Please review.");
 		}
 
-		if (BPUtil.checkDirectory(blueprintInputPath + "\\SYS")) {
-			bpInput.put("SIT", BPUtil.getListOfFiles(blueprintInputPath + "\\SYS"));
-		}else {
-			bpInput.put("SIT",new ArrayList<>());
+		try {
+			if (bpUtil.checkDirectory(blueprintInputPath + "\\PAT")) {
+				bpInput.put("PAT", bpUtil.getListOfFiles(blueprintInputPath + "\\PAT"));
+			} else {
+				bpInput.put("PAT", new ArrayList<>());
+			}
+		} catch (Exception e) {
+			message.add("Invalid PAT input json file. Please review.");
 		}
 
-		if (BPUtil.checkDirectory(blueprintInputPath + "\\PAT")) {
-			bpInput.put("PAT", BPUtil.getListOfFiles(blueprintInputPath + "\\PAT"));
-		}else {
-			bpInput.put("PAT",new ArrayList<>());
+		try {
+			if (bpUtil.checkDirectory(blueprintInputPath + "\\PROD")) {
+				bpInput.put("PROD", bpUtil.getListOfFiles(blueprintInputPath + "\\PROD"));
+			} else {
+				bpInput.put("PROD", new ArrayList<>());
+			}
+		} catch (Exception e) {
+			message.add("Invalid PROD input json file. Please review.");
 		}
 
-		if (BPUtil.checkDirectory(blueprintInputPath + "\\PROD")) {
-			bpInput.put("PROD", BPUtil.getListOfFiles(blueprintInputPath + "\\PROD"));
-		}else {
-			bpInput.put("PROD",new ArrayList<>());
+		try {
+			if (bpUtil.checkDirectory(blueprintInputPath + "\\BAT")) {
+				bpInput.put("BAT", bpUtil.getListOfFiles(blueprintInputPath + "\\BAT"));
+			} else {
+				bpInput.put("BAT", new ArrayList<>());
+			}
+		} catch (Exception e) {
+			message.add("Invalid BAT input json file. Please review.");
 		}
 
+		return message;
 	}
 
 	public Set<String> getDevInputs() {
@@ -59,6 +91,10 @@ public class BluePrintInput {
 
 	public Set<String> getSITInputs() {
 		return getInputs("SIT");
+	}
+
+	public Set<String> getSYSInputs() {
+		return getInputs("SYS");
 	}
 
 	public Set<String> getPATInputs() {
@@ -72,7 +108,7 @@ public class BluePrintInput {
 	public Set<String> getBATInputs() {
 		return getInputs("BAT");
 	}
-	
+
 	private Set<String> getInputs(String type) {
 		Set<String> input = new TreeSet<>();
 		Gson gson = new Gson();
@@ -81,5 +117,11 @@ public class BluePrintInput {
 			input.addAll(fileData.keySet());
 		}
 		return input;
+	}
+
+	public void refreshSystem() {
+		this.bpInput.clear();
+		this.blueprintInputPath = "";
+		this.bpUtil = null;
 	}
 }

@@ -1,8 +1,6 @@
 package org.tosca.blueprint;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -20,17 +18,33 @@ class BPObject {
 public class BluePrint {
 
 	public Map<String, Object> inputs;
+	
+	public Integer inputSize;
 
-	public BluePrint(String blueprintFilePath) throws Exception {
+	public BluePrint() {
+		super();
+	}
+
+	public void processBluePrint(String blueprintFilePath) throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		BPObject data = mapper.readValue(new File(blueprintFilePath), BPObject.class);
 		this.inputs = data.inputs;
+		this.inputSize = data.inputs.keySet().size();
 	}
 
-	public Set<String> fetchInputFromBlueprint() {
+	public Set<String> getInputs() {
 		Set<String> bpInputs = new TreeSet<>();
 		bpInputs.addAll(this.inputs.keySet());
 		return bpInputs;
+	}
+	
+	public Integer getInputSize(){
+		return this.inputSize;
+	}
+	
+	public void refreshSystem(){
+		this.inputs.clear();
+		this.inputSize=0;
 	}
 }
