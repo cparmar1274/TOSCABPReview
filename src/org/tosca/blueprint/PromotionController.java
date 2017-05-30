@@ -14,4 +14,8 @@ public class PromotionController {
 		return "promotion";
 	}
 
+	
+	// GET Request
+	//GET FILES
+	//http://git.cloud.td.com/api/v3/projects/3868/repository/files?private_token=PrNXRjuVSzjNB7tmoXYJ&file_path=CTS_ALRT_P1_EAP/inputs/DEV/inputs1_alrt_batch.json&ref=master
 }
