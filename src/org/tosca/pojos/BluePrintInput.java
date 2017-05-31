@@ -31,7 +31,7 @@ public class BluePrintInput {
 				bpInput.put("DEV", new ArrayList<>());
 			}
 		} catch (Exception e) {
-			message.add("Invalid DEV input json file. Please review.");
+			message.add("Invalid DEV input json file. Please review."+e.getMessage());
 		}
 
 		try {
@@ -41,7 +41,7 @@ public class BluePrintInput {
 				bpInput.put("SIT", new ArrayList<>());
 			}
 		} catch (Exception e) {
-			message.add("Invalid SIT input json file. Please review.");
+			message.add("Invalid SIT input json file. Please review."+e.getMessage());
 		}
 
 		try {
@@ -51,7 +51,7 @@ public class BluePrintInput {
 				bpInput.put("SYS", new ArrayList<>());
 			}
 		} catch (Exception e) {
-			message.add("Invalid SYS input json file. Please review.");
+			message.add("Invalid SYS input json file. Please review."+e.getMessage());
 		}
 
 		try {
@@ -61,7 +61,7 @@ public class BluePrintInput {
 				bpInput.put("PAT", new ArrayList<>());
 			}
 		} catch (Exception e) {
-			message.add("Invalid PAT input json file. Please review.");
+			message.add("Invalid PAT input json file. Please review."+e.getMessage());
 		}
 
 		try {
@@ -71,7 +71,7 @@ public class BluePrintInput {
 				bpInput.put("PROD", new ArrayList<>());
 			}
 		} catch (Exception e) {
-			message.add("Invalid PROD input json file. Please review.");
+			message.add("Invalid PROD input json file. Please review."+e.getMessage());
 		}
 
 		try {
@@ -81,7 +81,7 @@ public class BluePrintInput {
 				bpInput.put("BAT", new ArrayList<>());
 			}
 		} catch (Exception e) {
-			message.add("Invalid BAT input json file. Please review.");
+			message.add("Invalid BAT input json file. Please review."+e.getMessage());
 		}
 
 		return message;
