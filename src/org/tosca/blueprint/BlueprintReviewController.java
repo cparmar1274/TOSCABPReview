@@ -14,7 +14,7 @@ public class BlueprintReviewController{
 	@Autowired(required = true)
 	public BlueprintReviewEngine bpEngineService;
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = {"/",""})
 	public String landingPage(HttpServletRequest request) {
 		return "blueprint";
 	}
