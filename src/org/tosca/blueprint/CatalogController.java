@@ -1,7 +1,7 @@
 package org.tosca.blueprint;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,7 +28,13 @@ public class CatalogController {
 	public @ResponseBody String getCatalogfile(HttpServletRequest request){
 		String catalogName = request.getParameter("catalog_name");
 		String tag = request.getParameter("tag_name");
-		return new Gson().toJson(new Catalog(catalogName,new GitData("bp_url",tag),"blueprnt_name","documentation",new ArrayList<EnvironmentData>()));
+		String blueprintName = request.getParameter("blueprint_name")+"/blueprint.yaml";
+		
+		Map<String,EnvironmentData> envData = new HashMap<>();
+		envData.put("PAT",new EnvironmentData("Enter pat input file path..."));
+		envData.put("SIT",new EnvironmentData("Enter sit input file path..."));
+		
+		return new Gson().toJson(new Catalog(catalogName,new GitData("http://git.mgmt1.cloud.td.com/its-cloud/sit-staging-blueprints",tag),blueprintName,"todo",envData));
 	}
 
 }

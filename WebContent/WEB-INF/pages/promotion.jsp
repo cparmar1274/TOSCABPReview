@@ -13,26 +13,25 @@
 </head>
 <body ng-app="myapp">
    <div class="container" ng-controller="MyController">
-  <h2>TOSCA Blueprint - Catalog creation</h2>
+  <h2>TOSCA Blueprint - Promotion</h2>
  
     <div class="form-group">
       <label for="Blueprint">BluePrint Name</label>
       <input type="text" class="form-control" id="email" ng-model="myData.blueprintName" placeholder="Enter blueprint name" name="Blueprint Name">
-    <label for="Token">Token</label>
+      <label for="Token">Token</label>
       <input type="text" class="form-control" id="email" ng-model="myData.token" placeholder="Enter git lab token" name="Token">
-    
     </div>
     <button type="submit" class="btn btn-success" ng-click="myData.doClick(item, $event)">Submit</button>
- <h5> BluePrint </br> </h5> 
- <pre ng-bind-html="myData.blueprintFile"></pre>
- 
+ <h5> BluePrint</h5> 
+ <textarea ng-model="myData.blueprintFile" rows="20" cols="160" ></textarea>
+ <button type="Update" class="btn btn-success" ng-click="myData.doUpdate(item, $event)">Submit</button>
  </div>
 
 
   <script>
     angular.module("myapp", [])
         .controller("MyController", function($scope, $http,$sce) {
-        	$scope.myData = {blueprintName:'Enter blueprint name...',token:'Enter git lab token'};
+        	$scope.myData = {};
         	$scope.myData.doClick = function(item, event) {
         		$scope.myData.fromServer = 'Uploading blueprint. Please wait...';
         		var data = $.param({
@@ -47,15 +46,33 @@
                 var responsePromise = $http.post("/TOSCABPReview/promotion/getBlueprintContent",data,config);
                 responsePromise.success(function(data, status, headers, config) {
                     console.log(data,data.content);
-                    $scope.myData.blueprintFile = $sce.trustAsHtml(data.content);
-                  
-                  
+                    $scope.myData.blueprintFile = angular.toJson(data, true);
                 });
                 responsePromise.error(function(data, status, headers, config) {
                 	 $scope.myData.blueprintFile = "ËRROR :"+$sce.trustAsHtml(data);
                 });
-                
-                
+            }
+
+        	$scope.myData.doUpdate = function(item, event) {
+        		$scope.myData.fromServer = 'Uploading blueprint. Please wait...';
+        		var data = $.param({
+                    blueprint_name: $scope.myData.blueprintName,
+                    token_name: $scope.myData.token,
+                    content:$scope.myData.blueprintFile
+                });
+                var config = {
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                    }
+                }
+                var responsePromise = $http.post("/TOSCABPReview/promotion/putBlueprintContent",data,config);
+                responsePromise.success(function(data, status, headers, config) {
+                    console.log(data,data.content);
+                    $scope.myData.blueprintFile = angular.toJson(data, true);
+                });
+                responsePromise.error(function(data, status, headers, config) {
+                	 $scope.myData.blueprintFile = "ËRROR :"+$sce.trustAsHtml(data);
+                });
             }
 
 

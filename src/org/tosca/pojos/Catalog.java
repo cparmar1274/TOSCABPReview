@@ -1,6 +1,7 @@
 package org.tosca.pojos;
 
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,16 +22,15 @@ public class Catalog {
 	public String documentation;
 	
 	@JsonProperty(value="environment")
-	public List<EnvironmentData> environment;
+	public Map<String, EnvironmentData> environment;
 	
-	public Catalog(String name, GitData git, String blueprint, String documentation,
-			List<EnvironmentData> environment) {
+	public Catalog(String name, GitData git, String blueprint, String documentation,Map<String, EnvironmentData> envData) {
 		super();
 		this.name = name;
 		this.git = git;
 		this.blueprint = blueprint;
 		this.documentation = documentation;
-		this.environment = environment;
+		this.environment = envData;
 	}
 
 	public String getName() {
@@ -65,11 +65,11 @@ public class Catalog {
 		this.documentation = documentation;
 	}
 
-	public List<EnvironmentData> getEnvironment() {
+	public Map<String, EnvironmentData> getEnvironment() {
 		return environment;
 	}
 
-	public void setEnvironment(List<EnvironmentData> environment) {
+	public void setEnvironment(Map<String, EnvironmentData> environment) {
 		this.environment = environment;
 	}
 	

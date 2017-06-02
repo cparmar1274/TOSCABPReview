@@ -13,7 +13,7 @@
 </head>
 <body ng-app="myapp">
    <div class="container" ng-controller="MyController">
-  <h2>TOSCA Blueprint Reviewer</h2>
+  <h2>TOSCA Blueprint - Review</h2>
  
     <div class="form-group">
       <label for="Blueprint">Blueprint</label>

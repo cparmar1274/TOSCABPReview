@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitFile {
 
-	@JsonProperty("blod_id")
+	@JsonProperty(value = "blod_id")
 	public String blobId;
 
-	@JsonProperty("commit_id")
+	@JsonProperty(value = "commit_id")
 	public String commitId;
 
 	@JsonProperty(value = "content")
@@ -17,16 +17,16 @@ public class GitFile {
 
 	@JsonProperty(value = "encoding")
 	public String encoding;
-	
+
 	@JsonProperty(value = "file_name")
 	public String fileName;
 
 	@JsonProperty(value = "file_path")
 	public String filePath;
-	
+
 	@JsonProperty(value = "ref")
 	public String ref;
-	
+
 	@JsonProperty(value = "file_size")
 	public Integer fileSize;
 
@@ -93,7 +93,5 @@ public class GitFile {
 	public void setFileSize(Integer fileSize) {
 		this.fileSize = fileSize;
 	}
-	
-	
 
 }

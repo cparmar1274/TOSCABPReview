@@ -15,27 +15,45 @@
    <div class="container" ng-controller="MyController">
   <h2>TOSCA Blueprint - Catalog creation</h2>
  
-    <div class="form-group">
-      <label for="Blueprint">Catalog Name</label>
-      <input type="text" class="form-control" id="email" ng-model="myData.catalogName" placeholder="Enter catalog name" name="Catalog Name">
-      <label for="Environment">Tag Name</label>
-      <input type="text" class="form-control" id="email" ng-model="myData.envName" placeholder="Enter tag name" name="Environments">
+    <div class="form-group row">
+      <label for="Catalog Name" class="col-2 col-form-label">Catalog Name</label>
+      <div class="col-10">
+         <input type="text" class="form-control" id="myData_catalogName" ng-model="myData.catalogName" placeholder="Enter catalog name" name="Catalog Name">
+      </div>
+   </div>  
+   
+    <div class="form-group row">
+      <label for="Environments" class="col-2 col-form-label">Tag Name</label>
+      <div class="col-10">
+      <input type="text" class="form-control" id="myData_tagName" ng-model="myData.tagName" placeholder="Enter tag name" name="Environments">
+      </div>
+   </div>
+   
+    <div class="form-group row"> 
+      <label for="Blueprint" class="col-2 col-form-label">Blueprint Name</label>
+      <div class="col-10">
+      <input type="text" class="form-control" id="myData_blueprintName" ng-model="myData.blueprintName" placeholder="Enter blueprint name" name="Blueprint">
+      </div>
     </div>
+    
+     <div class="form-group row"> 
     <button type="submit" class="btn btn-success" ng-click="myData.doClick(item, $event)">Submit</button>
- <h5> Catalog </br> </h5> 
-  <pre >{{myData.catalogFile}}</pre>
+  </div>
+   <div class="form-group row"> 
+  <textarea ng-model="myData.catalogFile" rows="20" cols="160"></textarea>
+  </div>
  </div>
-
 
   <script>
     angular.module("myapp", [])
         .controller("MyController", function($scope, $http,$sce) {
-        	$scope.myData = {catalogName:'Enter catalog name...', tagName:'enter tag name'};
+        	$scope.myData = {};
         	$scope.myData.doClick = function(item, event) {
         		$scope.myData.fromServer = 'Creating Catalog. Please wait...';
         		var data = $.param({
                     catalog_name: $scope.myData.catalogName,
-                    tag_name: $scope.myData.tagName
+                    tag_name: $scope.myData.tagName,
+                    blueprint_name: $scope.myData.blueprintName
                 });
                 var config = {
                     headers : {
@@ -44,7 +62,7 @@
                 }
                 var responsePromise = $http.post("/TOSCABPReview/catalog/create",data,config);
                 responsePromise.success(function(data, status, headers, config) {
-                    $scope.myData.catalogFile = data;
+                    $scope.myData.catalogFile = angular.toJson(data, true);
                   
                   
                 });
